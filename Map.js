@@ -8,7 +8,7 @@ import io from "socket.io-client"
 
 class Map extends React.Component {
   componentDidMount() {
-    const socket = io("http://192.168.1.179:2137") // LOCAL
+    const socket = io(process.env.SERVER_URL)
     this.props.dispatch(updateSocket(socket))
 
     socket.on("reports", reports => {
