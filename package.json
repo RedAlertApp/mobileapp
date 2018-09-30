@@ -2,14 +2,6 @@
   "name": "mobileapp",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "husky": "^0.14.3",
-    "jest-expo": "~27.0.0",
-    "prettier": "1.13.5",
-    "pretty-quick": "^1.7.0",
-    "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1"
-  },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
@@ -41,6 +33,15 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.1.1",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "jest-expo": "~27.0.0",
+    "prettier": "1.13.5",
+    "pretty-quick": "^1.7.0",
+    "react-native-scripts": "1.14.0",
+    "react-test-renderer": "16.3.1"
   }
 }
