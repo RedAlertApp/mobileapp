@@ -1,0 +1,7 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "quotes": [2, "double", { "avoidEscape": true }],
+    "space-before-function-paren": "off"
+  }
+}
