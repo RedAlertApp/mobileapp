@@ -6,7 +6,7 @@ import ActionButton from "react-native-action-button"
 import { connect } from "react-redux"
 import { START_REPORT, DELETE_REPORT } from "./actions/actionTypes"
 import { updateBottomState } from "./actions"
-import * as Animatable from "react-native-animatable"
+import { View as AnimatableView } from "react-native-animatable"
 
 class Ui extends React.Component {
   constructor() {
@@ -22,10 +22,6 @@ class Ui extends React.Component {
         return true
       } else if (this.props.level === 1) {
         this.props.dispatch(updateBottomState(DELETE_REPORT))
-        this.setState({
-          height: 56,
-          buttonSize: 56
-        })
         return true
       }
       return false
@@ -40,7 +36,7 @@ class Ui extends React.Component {
       <View style={{ flex: 1 }}>
         <Map />
 
-        <Animatable.View
+        <AnimatableView
           transition="height"
           style={{
             height: this.props.height,
@@ -49,7 +45,7 @@ class Ui extends React.Component {
           }}
         >
           <ReportButtons />
-        </Animatable.View>
+        </AnimatableView>
 
         <ActionButton
           transition

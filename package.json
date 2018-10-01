@@ -15,7 +15,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "axios": "0.18.0",
     "create-react-class": "15.6.3",
     "expo": "30.0.1",
     "prop-types": "15.6.2",

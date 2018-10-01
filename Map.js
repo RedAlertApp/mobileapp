@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
-import { MapView } from "expo"
+import { MapView, Location, Permissions } from "expo"
 import { Marker } from "react-native-maps"
 import { updateRegion, updateReports, updateSocket } from "./actions"
 import { connect } from "react-redux"
@@ -15,38 +15,10 @@ class Map extends React.Component {
       this.props.dispatch(updateReports(reports))
     })
 
-    socket.on("user", user => {
-      this.props.dispatch(updateUser(user))
-    })
-
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        let newRegion = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05
-        }
-        this.props.dispatch(updateRegion(newRegion))
-      },
-      error => {},
-      { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 }
-    )
+    this.getLocation()
 
     setInterval(() => {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          let newRegion = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.05,
-            longitudeDelta: 0.05
-          }
-          this.props.dispatch(updateRegion(newRegion))
-        },
-        error => {},
-        { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 }
-      )
+      this.getLocation()
     }, 5000)
   }
 
@@ -119,6 +91,22 @@ class Map extends React.Component {
 
   deg2rad(deg) {
     return deg * (Math.PI / 180)
+  }
+
+  async getLocation() {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION)
+    if (status !== "granted") {
+      console.log("Permission to access location was denied")
+    } else {
+      let location = await Location.getCurrentPositionAsync({})
+      let newRegion = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05
+      }
+      this.props.dispatch(updateRegion(newRegion))
+    }
   }
 }
 

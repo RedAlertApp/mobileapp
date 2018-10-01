@@ -2,12 +2,9 @@ import {
   UPDATE_REGION,
   UPDATE_REPORTS,
   UPDATE_SOCKET,
-  START_REPORT,
   CONFIRM_REPORT,
   UPDATE_USER
 } from "./actionTypes"
-
-import axios from "axios"
 
 export const updateRegion = region => ({
   type: UPDATE_REGION,

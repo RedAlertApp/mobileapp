@@ -1,8 +1,7 @@
-const React = require("react")
-const { ViewPropTypes } = (ReactNative = require("react-native"))
-const PropTypes = require("prop-types")
-const createReactClass = require("create-react-class")
-const { StyleSheet, Text, View } = ReactNative
+import React from "react"
+import { StyleSheet, Text, View, ViewPropTypes, Button } from "react-native"
+import PropTypes from "prop-types"
+import createReactClass from "create-react-class"
 
 const CustomTabBar = createReactClass({
   propTypes: {
@@ -25,8 +24,6 @@ const CustomTabBar = createReactClass({
       backgroundColor: null
     }
   },
-
-  renderTabOption(name, page) {},
 
   renderTab(name, page, isTabActive, onPressHandler) {
     const { activeTextColor, inactiveTextColor, textStyle } = this.props
@@ -52,20 +49,6 @@ const CustomTabBar = createReactClass({
   },
 
   render() {
-    const containerWidth = this.props.containerWidth
-    const numberOfTabs = this.props.tabs.length
-    const tabUnderlineStyle = {
-      position: "absolute",
-      width: containerWidth / numberOfTabs,
-      height: 4,
-      backgroundColor: "navy",
-      bottom: 0
-    }
-
-    const translateX = this.props.scrollValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, containerWidth / numberOfTabs]
-    })
     return null
   }
 })
