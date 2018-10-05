@@ -2,13 +2,13 @@
   "expo": {
     "sdkVersion": "30.0.0",
     "android": {
-      "package": "pl.hackathon.app"
+      "package": "pl.redalert.app"
     }
   },
   "android": {
-    "package": "com.codingmechanic.mapcuny",
+    "package": "pl.redalert.app",
     "config": {
-      "googleMaps": { "apiKey": "AIzaSyAW3sTtDcjGA8gZcuDkhiw4teJPjS04siw" }
+      "googleMaps": { "apiKey": "AIzaSyDjdvYfvegg9RyOlKrmaNQIZon5Lg4aMGc" }
     }
   }
 }
