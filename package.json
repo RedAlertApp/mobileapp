@@ -10,7 +10,7 @@
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll",
     "precommit": "pretty-quick --staged",
-    "test:ci": "node ./node_modules/jest/bin/jest.js"
+    "test:ci": "node ./node_modules/jest/bin/jest.js --coverage --"
   },
   "jest": {
     "preset": "jest-expo"
