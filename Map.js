@@ -1,7 +1,6 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
 import { MapView, Location, Permissions } from "expo"
-import { Marker } from "react-native-maps"
 import { updateRegion, updateReports, updateSocket } from "./actions"
 import { connect } from "react-redux"
 import io from "socket.io-client"
@@ -50,7 +49,7 @@ class Map extends React.Component {
               return distance < 2000
             })
             .map((report, key) => (
-              <Marker
+              <MapView.Marker
                 coordinate={{
                   latitude: report.latitude,
                   longitude: report.longitude
