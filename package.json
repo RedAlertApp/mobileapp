@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "babel-plugin-inline-dotenv": "1.1.2",
-    "husky": "1.1.0",
+    "husky": "1.1.1",
     "jest": "23.6.0",
     "jest-expo": "30.0.0",
     "prettier": "1.14.3",
