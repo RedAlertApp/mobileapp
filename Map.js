@@ -4,6 +4,7 @@ import { MapView, Location, Permissions } from "expo"
 import { updateRegion, updateReports, updateSocket } from "./actions"
 import { connect } from "react-redux"
 import io from "socket.io-client"
+import MarkersList from "./MarkersList"
 
 class Map extends React.Component {
   componentDidMount() {
@@ -36,48 +37,10 @@ class Map extends React.Component {
           }}
           showsUserLocation
         >
-          {this.props.reports
-            .filter(report => {
-              let distance = this.calculateDistanceTo(
-                report.latitude,
-                report.longitude
-              ).toFixed(0)
-              return distance < 2000
-            })
-            .map((report, key) => (
-              <MapView.Marker
-                coordinate={{
-                  latitude: report.latitude,
-                  longitude: report.longitude
-                }}
-                title={report.description}
-                description={report.extra}
-                key={key}
-              />
-            ))}
+          <MarkersList />
         </MapView>
       </View>
     )
-  }
-
-  calculateDistanceTo(lat, lng) {
-    return this.getDistanceFromLatLonInMetres(
-      +lat,
-      +lng,
-      +this.props.region.latitude,
-      +this.props.region.longitude
-    )
-  }
-
-  getDistanceFromLatLonInMetres(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295 // Math.PI / 180
-    var c = Math.cos
-    var a =
-      0.5 -
-      c((lat2 - lat1) * p) / 2 +
-      (c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))) / 2
-
-    return 12742000 * Math.asin(Math.sqrt(a)) // 2 * R * 1000; R = 6371 km
   }
 
   async watchLocation() {
@@ -119,8 +82,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    region: state.appReducer.region,
-    reports: state.appReducer.reports
+    region: state.appReducer.region
   }
 }
 
