@@ -1,10 +1,10 @@
 import React from "react"
-import Ui from "./Ui.js"
-import Reports from "./Reports.js"
+import Ui from "./src/Ui.js"
+import Reports from "./src/Reports.js"
 import { Provider } from "react-redux"
-import store from "./store.js"
+import store from "./src/store.js"
 import ScrollableTabView from "react-native-scrollable-tab-view"
-import CustomTabBar from "./CustomTabBar"
+import CustomTabBar from "./src/CustomTabBar"
 
 class App extends React.Component {
   render() {
