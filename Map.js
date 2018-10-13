@@ -14,11 +14,7 @@ class Map extends React.Component {
       this.props.dispatch(updateReports(reports))
     })
 
-    this.getLocation()
-
-    setInterval(() => {
-      this.getLocation()
-    }, 5000)
+    this.watchLocation()
   }
 
   render() {
@@ -42,7 +38,7 @@ class Map extends React.Component {
         >
           {this.props.reports
             .filter(report => {
-              let distance = this.calculateDistance(
+              let distance = this.calculateDistanceTo(
                 report.latitude,
                 report.longitude
               ).toFixed(0)
@@ -64,48 +60,45 @@ class Map extends React.Component {
     )
   }
 
-  calculateDistance(lat, lng) {
+  calculateDistanceTo(lat, lng) {
     return this.getDistanceFromLatLonInMetres(
-      Number(lat),
-      Number(lng),
-      Number(this.props.region.latitude),
-      Number(this.props.region.longitude)
+      +lat,
+      +lng,
+      +this.props.region.latitude,
+      +this.props.region.longitude
     )
   }
 
   getDistanceFromLatLonInMetres(lat1, lon1, lat2, lon2) {
-    var R = 6371 // Radius of the earth in km
-    var dLat = this.deg2rad(lat2 - lat1) // deg2rad below
-    var dLon = this.deg2rad(lon2 - lon1)
+    var p = 0.017453292519943295 // Math.PI / 180
+    var c = Math.cos
     var a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.deg2rad(lat1)) *
-        Math.cos(this.deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2)
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-    var d = R * c * 1000 // Distance in m
-    return d
+      0.5 -
+      c((lat2 - lat1) * p) / 2 +
+      (c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p))) / 2
+
+    return 12742000 * Math.asin(Math.sqrt(a)) // 2 * R * 1000; R = 6371 km
   }
 
-  deg2rad(deg) {
-    return deg * (Math.PI / 180)
-  }
-
-  async getLocation() {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION)
-    if (status !== "granted") {
+  async watchLocation() {
+    if (!this.isLocationPermitted()) {
       console.log("Permission to access location was denied")
     } else {
-      let location = await Location.getCurrentPositionAsync({})
-      let newRegion = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05
-      }
-      this.props.dispatch(updateRegion(newRegion))
+      Location.watchPositionAsync({}, location => {
+        let newRegion = {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05
+        }
+        this.props.dispatch(updateRegion(newRegion))
+      })
     }
+  }
+
+  async isLocationPermitted() {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION)
+    return status === "granted"
   }
 }
 
