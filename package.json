@@ -41,7 +41,7 @@
     "jest": "23.6.0",
     "jest-expo": "30.0.0",
     "prettier": "1.14.3",
-    "pretty-quick": "1.7.0",
+    "pretty-quick": "1.8.0",
     "whatwg-fetch": "2.0.4"
   }
 }
