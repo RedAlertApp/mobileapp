@@ -11,6 +11,11 @@ class Map extends React.Component {
     const socket = io(process.env.SERVER_URL)
     this.props.dispatch(updateSocket(socket))
 
+    socket.emit("authentication", {
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYzRiNTY3MWIyNWNjNDI2MGMzN2UzMSIsImlhdCI6MTU0MDA1MzA4M30.rkfITIagk2QGgBFZ8sxlUS46l3FhCkLsHKFaYRkztqw"
+    })
+
     socket.on("reports", reports => {
       this.props.dispatch(updateReports(reports))
     })
